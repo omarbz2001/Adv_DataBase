@@ -1,0 +1,5 @@
+# Python virtual environment
+venv/
+
+# neo4j database
+neo4j/ 
