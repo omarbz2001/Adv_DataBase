@@ -2,4 +2,7 @@
 venv/
 
 # neo4j database
-neo4j/ 
+neo4j/
+
+# Environment variables
+.env

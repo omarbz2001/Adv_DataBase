@@ -1,11 +1,14 @@
 import json
 from neo4j import GraphDatabase
+import os , dotenv
+
+dotenv.load_dotenv()
 
 # --- Configuration ---
-NEO4J_URI = "neo4j+s://54d3d58c.databases.neo4j.io"  
-NEO4J_USER = "neo4j"
-NEO4J_PASSWORD = "LQSIDLvvoUZV1vj4Bh7CtBVMy4uxQVSl1OD9WY7OTLo"
-JSON_PATH = "test.json"  
+NEO4J_URI = os.getenv("NEO4J_URI")
+NEO4J_USER = os.getenv("NEO4J_USER")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+JSON_PATH = os.getenv("JSON_PATH")
 
 # --- Neo4j Session ---
 driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
@@ -23,7 +26,7 @@ def load_articles(tx, article):
 
     # Create Author nodes and relationships
     for author in article.get("authors", []):
-        author_id = author.get("_id", author.get("name"))  # fallback if _id is missing
+        author_id = author.get("_id", author.get("name"))  
         name = author.get("name")
         if not name:
             continue
