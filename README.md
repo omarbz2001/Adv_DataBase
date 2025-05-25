@@ -13,7 +13,7 @@ This project loads a dataset of scientific articles into a Neo4j graph database.
 - `(:Author)-[:AUTHORED]->(:Article)` relationships
 - `(:Article)-[:CITES]->(:Article)` relationships for references
 
-## ⚙️ Loading Script: `load.py`
+## ⚙️ Loading Script: `load_database.py`
 
 The script performs the following:
 
