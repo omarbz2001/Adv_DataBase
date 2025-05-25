@@ -1,8 +1,12 @@
 # Python virtual environment
 venv/
 
-# neo4j database
-neo4j/
-
 # Environment variables
 .env
+#neo4j database
+neo4j/
+
+# json files
+*.json
+*.jsonl
+

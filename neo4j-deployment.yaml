@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neo4j
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neo4j
+  template:
+    metadata:
+      labels:
+        app: neo4j
+    spec:
+      containers:
+        - name: neo4j-omar-yassine
+          image: neo4j:latest
+          ports:
+            - containerPort: 7474
+            - containerPort: 7687
+          env:
+            - name: NEO4J_AUTH
+              value: "neo4j/testtest"
+            - name: NEO4J_server_config_strict__validation_enabled
+              value: "false"
+            - name: NEO4J_dbms_connector_bolt_listen__address
+              value: "0.0.0.0:7687"
+            - name: NEO4J_dbms_connector_http_listen__address
+              value: "0.0.0.0:7474"
+          resources:
+            limits:
+              memory: "3Gi"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: logs
+              mountPath: /logs
+            - name: import
+              mountPath: /var/lib/neo4j/import
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}
+        - name: import
+          emptyDir: {}
