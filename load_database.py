@@ -3,6 +3,7 @@
 import json
 from neo4j import GraphDatabase
 import os, dotenv
+import time
 
 dotenv.load_dotenv()
 
@@ -17,6 +18,7 @@ BATCH_SIZE = 500
 print(f"Connecting to Neo4j")
 driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 print(f"Connected to Neo4j at {NEO4J_URI}")
+start_time = time.time()
 def load_articles_batch(tx, articles_batch):
     for article in articles_batch:
         article_id = article.get("id")
@@ -71,6 +73,8 @@ with driver.session() as session:
         if batch:
             session.write_transaction(load_articles_batch, batch)
             print(f"Loaded final batch of {len(batch)}")
-
+end_time = time.time()
+print(f"All articles loaded successfully.")
+print(f"Total loading time: {end_time - start_time:.2f} seconds")
 driver.close()
 
